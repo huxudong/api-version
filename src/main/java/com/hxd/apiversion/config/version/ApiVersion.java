@@ -1,4 +1,4 @@
-package com.hxd.apiversion.config.version.annotation;
+package com.hxd.apiversion.config.version;
 
 import org.springframework.web.bind.annotation.Mapping;
 

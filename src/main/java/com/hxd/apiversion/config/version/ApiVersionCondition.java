@@ -1,6 +1,5 @@
-package com.hxd.apiversion.config.version.annotation;
+package com.hxd.apiversion.config.version;
 
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.servlet.mvc.condition.RequestCondition;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,7 +10,6 @@ import java.util.regex.Pattern;
  * @Author: huxudong
  * @Date: 2019/9/27 9:51 上午
  */
-@Slf4j
 public class ApiVersionCondition implements RequestCondition<ApiVersionCondition> {
 
     /**
@@ -53,7 +51,6 @@ public class ApiVersionCondition implements RequestCondition<ApiVersionCondition
         Matcher m = VERSION_PREFIX_PATTERN.matcher(request.getRequestURI());
         if (m.find()) {
             Integer version = Integer.valueOf(m.group(1));
-            log.info("request version is {}, this version is {}", version, this.apiVersion);
             // when applying version number bigger than configuration, then it will take
             if (version >= this.apiVersion) {
                 // effect
@@ -78,7 +75,6 @@ public class ApiVersionCondition implements RequestCondition<ApiVersionCondition
     public int compareTo(ApiVersionCondition other, HttpServletRequest request) {
         // when more than one configured version number passed the match rule, then only
         // the biggest one will take effect.
-        log.info("this version is {}, other version is {}", this.apiVersion, other.getApiVersion());
         return other.getApiVersion() - this.apiVersion;
     }
 
